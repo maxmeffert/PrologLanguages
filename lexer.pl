@@ -1,21 +1,38 @@
-space --> [S], { code_type(S, space) }.
-space(S) --> [S], { code_type(S, space) }.
-spaces([S|SS]) --> space(S), spaces(SS).
-spaces([]) --> \+ space(_).
+% ==============================================================================
+% Lexer
+% ==============================================================================
 
-notspace(S) --> [S], { \+ code_type(S,space) }.
-notspaces([S|SS]) --> notspace(S), notspaces(SS).
-notspaces([]) --> \+ notspace(_).
+lexer([Token|T]) --> token(Token), !, lexer(T).
+lexer(T) --> space, !, lexer(T).
+lexer([]) --> [], !.
 
-digit(D) --> [D], { code_type(D, digit) }.
-digits([D|DS]) --> digit(D), digits(DS).
-digits([]) --> \+ digit(_).
+lexer(String,Tokens) :-
+    string(String),
+    string_codes(String,Chars),
+    lexer(Tokens,Chars,[]).
 
-letter(L) --> [L], { code_type(L, alpha) }.
-letters([L|LS]) --> letter(L), letters(LS).
-letters([]) --> \+ letter(_).
+% ==============================================================================
+% Tokens
+% ==============================================================================
 
-code(String,Code) --> [Code], { string_codes(String,[Code]) }.
+token(tString(Value)) --> tString(Value).
+token(tFloat(Value)) --> tFloat(Value).
+token(tInteger(Value)) --> tInteger(Value).
+token(tBool(Value)) --> tBool(Value).
+token(tWhile) --> "while".
+token(tIf) --> "if". 
+token(tElse) --> "else".
+token(tEqual) --> "==".
+token(tAssign) --> "=".
+token(tPlus) --> "+".
+token(tMinus) --> "-".
+token(tAsterisk) --> "*".
+token(tPeriod) --> ".".
+token(tComma) --> ",".
+token(tSemicolon) --> ";".
+token(tQuote) --> ",".
+token(tDouleQuote) --> "\"".
+token(tError(NSpace)) --> notspace(NSpace).
 
 % ==============================================================================
 % Strings
@@ -83,38 +100,26 @@ tFloat(FloatValue) --> floatLiteral(FloatLiteral), {
 tBool(true) --> "true".
 tBool(false) --> "false".
 
-% ==============================================================================
-% Tokens
-% ==============================================================================
-
-token(tString(Value)) --> tString(Value).
-token(tFloat(Value)) --> tFloat(Value).
-token(tInteger(Value)) --> tInteger(Value).
-token(tBool(Value)) --> tBool(Value).
-token(tWhile) --> "while".
-token(tIf) --> "if". 
-token(tElse) --> "else".
-token(tEqual) --> "==".
-token(tAssign) --> "=".
-token(tPlus) --> "+".
-token(tMinus) --> "-".
-token(tAsterisk) --> "*".
-token(tPeriod) --> ".".
-token(tComma) --> ",".
-token(tSemicolon) --> ";".
-token(tQuote) --> ",".
-token(tDouleQuote) --> "\"".
-token(tError(NSpace)) --> notspace(NSpace).
 
 % ==============================================================================
-% Lexer
+% Character/Code Recognition Utils
 % ==============================================================================
 
-lexer([Token|T]) --> token(Token), !, lexer(T).
-lexer(T) --> space, !, lexer(T).
-lexer([]) --> [], !.
+space --> [S], { code_type(S, space) }.
+space(S) --> [S], { code_type(S, space) }.
+spaces([S|SS]) --> space(S), spaces(SS).
+spaces([]) --> \+ space(_).
 
-lexer(String,Tokens) :-
-    string(String),
-    string_codes(String,Chars),
-    lexer(Tokens,Chars,[]).
+notspace(S) --> [S], { \+ code_type(S,space) }.
+notspaces([S|SS]) --> notspace(S), notspaces(SS).
+notspaces([]) --> \+ notspace(_).
+
+digit(D) --> [D], { code_type(D, digit) }.
+digits([D|DS]) --> digit(D), digits(DS).
+digits([]) --> \+ digit(_).
+
+letter(L) --> [L], { code_type(L, alpha) }.
+letters([L|LS]) --> letter(L), letters(LS).
+letters([]) --> \+ letter(_).
+
+code(String,Code) --> [Code], { string_codes(String,[Code]) }.
