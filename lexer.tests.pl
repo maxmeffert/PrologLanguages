@@ -35,7 +35,7 @@ test(bool_false) :-
 
 test(bool_error) :- 
     lexer("truefalse",Tokens),
-    assertion(Tokens=[tError("truefalse")]).
+    assertion(Tokens=[tIdentifier("truefalse")]).
 
 test(bool_true_false) :- 
     lexer("true false",Tokens),

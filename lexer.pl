@@ -15,27 +15,52 @@ lexer(String,Tokens) :-
 % Tokens
 % ==============================================================================
 
+% Literals
 token(tString(Value)) --> tString(Value).
 token(tFloat(Value)) --> tFloat(Value).
 token(tInteger(Value)) --> tInteger(Value).
-token(tBool(Value)) --> tBool(Value).
-token(tWhile) --> "while".
-token(tIf) --> "if". 
-token(tElse) --> "else".
-token(tEqual) --> "==".
-token(tAssign) --> "=".
+token(Token) --> tIdentifier(Identifier), {
+    reservedWord(Identifier,Value) -> Token = Value ; Token = tIdentifier(Identifier)  
+}.
+ 
+% Two Caracter Tokens
+token(tEqualEqual) --> "==".
+token(tLessEqual) --> "<=".
+token(tGreaterEqual) --> ">=".
+
+% One Character Tokens
+token(tEqual) --> "=".
 token(tPlus) --> "+".
 token(tMinus) --> "-".
-token(tAsterisk) --> "*".
+token(tStar) --> "*".
 token(tPeriod) --> ".".
 token(tComma) --> ",".
 token(tSemicolon) --> ";".
-token(tQuote) --> ",".
+token(tColon) --> ":".
+token(tTilde) --> "~".
+token(tSlash) --> "/".
+token(tBackslash) --> "\\".
+token(tLess) --> "<".
+token(tGreater) --> ">".
+token(tQuote) --> [39]. % syntax coloring of vs code breaks for "'" for some reason
 token(tDouleQuote) --> "\"".
-token(tError(NSpace)) --> notspace(NSpace).
+token(tLeftParen) --> "(".
+token(tRightParen) --> ")".
+token(tLeftBrace) --> "{".
+token(tRightBrace) --> "}".
+
+% Error Tokens
+token(tError(Value)) --> notspace(Value).
+
+% Reserved Words and Keywords
+reservedWord("true",tBool(true)).
+reservedWord("false",tBool(false)).
+reservedWord("if",tIf).
+reservedWord("else",tElse).
+reservedWord("while",tWhile).
 
 % ==============================================================================
-% Strings
+% String Literals
 % ==============================================================================
 
 doubleQuote(Code) --> code("\"", Code).
@@ -54,7 +79,7 @@ stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQ
 tString(StringValue) --> stringLiteral(StringValue).
 
 % ==============================================================================
-% Integers Numbers
+% Integer Number Literals
 % ==============================================================================
 
 sign(Code) --> code("+",Code).
@@ -68,7 +93,7 @@ tInteger(IntegerValue) --> integerLiteral(IntegerLiteral), {
 }.
 
 % ==============================================================================
-% Floating Point Numbers
+% Floating Point Number Literals
 % ==============================================================================
 
 floatDecimalPoint(Code) --> code(".",Code).
@@ -78,7 +103,6 @@ floatFractionLiteral([P,D|DS]) --> floatDecimalPoint(P), digit(D), digits(DS).
 
 floatExponentLiteral([FloatExponent|IntegerLiteral]) --> floatExponent(FloatExponent), signedIntegerLiteral(IntegerLiteral).
 floatExponentLiteral([FloatExponent|IntegerLiteral]) --> floatExponent(FloatExponent), integerLiteral(IntegerLiteral).
-
 
 floatLiteral(FloatLiteral) --> integerLiteral(IntegerLiteral), floatFractionLiteral(FloatFractionLiteral), floatExponentLiteral(FloatExponentLiteral), {
     append(IntegerLiteral,FloatFractionLiteral,X),
@@ -96,12 +120,12 @@ tFloat(FloatValue) --> floatLiteral(FloatLiteral), {
 }.
 
 % ==============================================================================
-% Booleans
+% Identifier Literals
 % ==============================================================================
 
-tBool(true) --> "true".
-tBool(false) --> "false".
-
+tIdentifier(Value) --> letter(L), letters(LS), {
+    string_codes(Value,[L|LS])
+}.
 
 % ==============================================================================
 % Character/Code Recognition Utils

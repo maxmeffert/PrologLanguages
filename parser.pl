@@ -11,7 +11,7 @@ number(number(Number)) --> [tFloat(Number)].
 number(number(Number)) --> [tInteger(Number)].
 negOperator --> [tMinus].
 addOperator --> [tPlus].
-mulOperator --> [tAsterisk].
+mulOperator --> [tStar].
 
 parser(Tokens,ParseTree) :-
     expr(ParseTree,Tokens,[]).
