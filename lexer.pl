@@ -40,16 +40,18 @@ token(tError(NSpace)) --> notspace(NSpace).
 
 doubleQuote(Code) --> code("\"", Code).
 
-stringContent([S,Q]) --> [S,Q], {[S,Q] = [92,34]}.
-stringContent([Q]) --> [Q], {\+ [Q] = [34]}.
+stringContent([S,Q]) --> codes("\\\"",[S,Q]).
+stringContent([Q]) --> notCode("\"",Q).
 
 stringContents([S,Q|QS]) --> stringContent([S,Q]), stringContents(QS).
 stringContents([Q|QS]) --> stringContent([Q]), stringContents(QS).
 stringContents([]) --> \+ stringContent(_).
 
-tString(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQuote(_), {
+stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQuote(_), {
     string_codes(StringValue,Contents)
 }.
+
+tString(StringValue) --> stringLiteral(StringValue).
 
 % ==============================================================================
 % Integers Numbers
@@ -123,3 +125,6 @@ letters([L|LS]) --> letter(L), letters(LS).
 letters([]) --> \+ letter(_).
 
 code(String,Code) --> [Code], { string_codes(String,[Code]) }.
+codes(String,Codes) --> Codes, { string_codes(String,Codes) }.
+notCode(String,Code) --> [Code], { string_codes(String,[C]), \+ C = Code }.
+notCodes(String,Codes) --> Codes, { string_codes(String,CS), \+ CS = Codes }.
