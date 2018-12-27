@@ -123,7 +123,7 @@ tFloat(FloatValue) --> floatLiteral(FloatLiteral), {
 % Identifier Literals
 % ==============================================================================
 
-tIdentifier(Value) --> letter(L), letters(LS), {
+tIdentifier(Value) --> letter(L), lettersOrDigits(LS), {
     string_codes(Value,[L|LS])
 }.
 
@@ -147,6 +147,10 @@ digits([]) --> \+ digit(_).
 letter(L) --> [L], { code_type(L, alpha) }.
 letters([L|LS]) --> letter(L), letters(LS).
 letters([]) --> \+ letter(_).
+
+letterOrDigit(X) --> [X], { code_type(X,digit) ; code_type(X,alpha) }.
+lettersOrDigits([X|XS]) --> letterOrDigit(X), lettersOrDigits(XS).
+lettersOrDigits([]) --> \+ letterOrDigit(_).
 
 code(String,Code) --> [Code], { string_codes(String,[Code]) }.
 codes(String,Codes) --> Codes, { string_codes(String,Codes) }.
