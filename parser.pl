@@ -1,11 +1,20 @@
+% ==============================================================================
+% Parser
+% ==============================================================================
 
-expr(add(Term1,Term2)) --> term(Term1), addOperator, term(Term2), !.
-expr(Term) --> term(Term), !.
-term(mul(Factor1,Factor2)) --> factor(Factor1), mulOperator, factor(Factor2), !.
-term(neg(Term)) --> negOperator, factor(Term), !.
-term(Term) --> factor(Term), !.
-factor(Factor) --> number(Factor), !.
-factor(Factor) --> "(", expr(Factor), ")", !.
+expression(X) --> addition(X), !.
+
+addition(add(A,B)) --> multiplication(A), addOperator, addition(B), !.
+addition(A) --> multiplication(A), !.
+
+multiplication(mul(A,B)) --> unary(A), mulOperator, multiplication(B), !.
+multiplication(A) --> unary(A), !.
+
+unary(neg(X)) --> negOperator, unary(X), !.
+unary(X) --> primary(X), !.
+
+primary(X) --> number(X), !.
+primary(X) --> "(", expression(X), ")", !.
 
 number(number(Number)) --> [tFloat(Number)].
 number(number(Number)) --> [tInteger(Number)].
@@ -14,4 +23,4 @@ addOperator --> [tPlus].
 mulOperator --> [tStar].
 
 parser(Tokens,ParseTree) :-
-    expr(ParseTree,Tokens,[]).
+    expression(ParseTree,Tokens,[]).
