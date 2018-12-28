@@ -2,6 +2,13 @@
 % Parser
 % ==============================================================================
 
+parser(Tokens,ParseTree) :-
+    expression(ParseTree,Tokens,[]).
+
+% ==============================================================================
+% Expressions
+% ==============================================================================
+
 expression(X) --> addition(X), !.
 
 addition(add(A,B)) --> multiplication(A), addOperator, addition(B), !.
@@ -18,9 +25,7 @@ primary(X) --> "(", expression(X), ")", !.
 
 number(number(Number)) --> [tFloat(Number)].
 number(number(Number)) --> [tInteger(Number)].
+
 negOperator --> [tMinus].
 addOperator --> [tPlus].
 mulOperator --> [tStar].
-
-parser(Tokens,ParseTree) :-
-    expression(ParseTree,Tokens,[]).
