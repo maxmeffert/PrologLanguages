@@ -2,6 +2,11 @@
 % Parser
 % ==============================================================================
 
+:- module(parser, [
+    parser/2,
+    parser/3
+    ]).
+
 parser(Tokens,ParseTree) :-
     parser(Tokens,expression,ParseTree).
     % expression(ParseTree,Tokens,[]).
@@ -13,7 +18,18 @@ parser(Tokens,Grammar,ParseTree) :-
 % Expressions
 % ==============================================================================
 
+expression(X) --> equality(X), !.
+expression(X) --> comparison(X), !.
 expression(X) --> addition(X), !.
+
+equality(eq(A,B)) --> addition(A), equalsEquals, addition(B), !.
+equality(neq(A,B)) --> addition(A), exclamationEquals, addition(B), !.
+
+comparison(gte(A,B)) --> addition(A), greaterEquals, addition(B), !.
+comparison(lte(A,B)) --> addition(A), lessEquals, addition(B), !.
+comparison(gt(A,B)) --> addition(A), greater, addition(B), !.
+comparison(lt(A,B)) --> addition(A), less, addition(B), !.
+
 
 addition(add(A,B)) --> multiplication(A), plus, addition(B), !.
 addition(sub(A,B)) --> multiplication(A), minus, addition(B), !.
@@ -25,21 +41,27 @@ multiplication(X) --> unary(X), !.
 unary(neg(X)) --> minus, unary(X), !.
 unary(X) --> primary(X), !.
 
-primary(X) --> rNumberLiteral(X), !.
+primary(X) --> numberLiteral(X), !.
 primary(X) --> leftParan, expression(X), rightParan, !.
 
-rNumberLiteral(number(Number)) --> rIntegerLiteral(integer(Number)).
-rNumberLiteral(number(Number)) --> rFloatLiteral(float(Number)).
+numberLiteral(number(Number)) --> integerLiteral(integer(Number)).
+numberLiteral(number(Number)) --> floatLiteral(float(Number)).
 
-rIntegerLiteral(integer(X)) --> [token(integer,X)].
-rFloatLiteral(float(X)) --> [token(float,X)].
+integerLiteral(integer(X)) --> [token(integer,X)].
+floatLiteral(float(X)) --> [token(float,X)].
 
-rStringLiteral(string(X)) --> [token(string,X)].
+stringLiteral(string(X)) --> [token(string,X)].
 
-rBooleanLiteral(boolean(X)) --> [token(boolean,X)].
+booleanLiteral(boolean(X)) --> [token(boolean,X)].
 
 plus --> [token("+")].
 minus --> [token("-")].
 star --> [token("*")].
+equalsEquals --> [token("==")].
+exclamationEquals --> [token("!=")].
+greater --> [token(">")].
+less --> [token("<")].
+greaterEquals --> [token(">=")].
+lessEquals --> [token("<=")].
 leftParan --> [token("(")].
 rightParan --> [token(")")].

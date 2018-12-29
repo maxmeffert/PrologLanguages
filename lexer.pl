@@ -2,6 +2,8 @@
 % Lexer
 % ==============================================================================
 
+:- module(lexer, [lexer/2]).
+
 lexer([Token|T]) --> token(Token), !, lexer(T).
 lexer(T) --> space, !, lexer(T).
 lexer([]) --> [], !.

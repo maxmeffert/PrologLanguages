@@ -1,6 +1,6 @@
-:- ['lexer.pl'].
-:- ['parser.pl'].
-:- ['interpreter.pl'].
+:- use_module(lexer).
+:- use_module(parser).
+:- use_module(interpreter).
 
 run(X) :-
     lexer("-1+5+1+2",Tokens),

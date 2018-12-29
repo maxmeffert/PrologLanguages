@@ -1,3 +1,5 @@
+:- module(interpeter,[eval/2]).
+
 eval(number(N),N).
 eval(add(A,B),Result) :- 
     eval(A,R1),
