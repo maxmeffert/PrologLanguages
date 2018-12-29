@@ -16,48 +16,49 @@ lexer(String,Tokens) :-
 % ==============================================================================
 
 % Literals
-token(tString(Value)) --> tString(Value).
-token(tFloat(Value)) --> tFloat(Value).
-token(tInteger(Value)) --> tInteger(Value).
+token(token(string,Value)) --> tString(Value).
+token(token(float,Value)) --> tFloat(Value).
+token(token(integer,Value)) --> tInteger(Value).
 token(Token) --> tIdentifier(Identifier), {
-    reservedWord(Identifier,Value) -> Token = Value ; Token = tIdentifier(Identifier)  
+    reservedWord(Identifier,Value) -> Token = Value ; Token = token(identifier,Identifier)  
 }.
  
 % Two Caracter Tokens
-token(tEqualEqual) --> "==".
-token(tLessEqual) --> "<=".
-token(tGreaterEqual) --> ">=".
+token(token("==")) --> "==".
+token(token("!=")) --> "!=".
+token(token("<=")) --> "<=".
+token(token(">=")) --> ">=".
 
 % One Character Tokens
-token(tEqual) --> "=".
-token(tPlus) --> "+".
-token(tMinus) --> "-".
-token(tStar) --> "*".
-token(tPeriod) --> ".".
-token(tComma) --> ",".
-token(tSemicolon) --> ";".
-token(tColon) --> ":".
-token(tTilde) --> "~".
-token(tSlash) --> "/".
-token(tBackslash) --> "\\".
-token(tLess) --> "<".
-token(tGreater) --> ">".
-token(tQuote) --> [39]. % syntax coloring of vs code breaks for "'" for some reason
-token(tDouleQuote) --> "\"".
-token(tLeftParen) --> "(".
-token(tRightParen) --> ")".
-token(tLeftBrace) --> "{".
-token(tRightBrace) --> "}".
+token(token("=")) --> "=".
+token(token("+")) --> "+".
+token(token("-")) --> "-".
+token(token("*")) --> "*".
+token(token(".")) --> ".".
+token(token(",")) --> ",".
+token(token(";")) --> ";".
+token(token(":")) --> ":".
+token(token("~")) --> "~".
+token(token("/")) --> "/".
+token(token("\\")) --> "\\".
+token(token("<")) --> "<".
+token(token(">")) --> ">".
+token(token("'")) --> "'".
+token(token("\"")) --> "\"".
+token(token("(")) --> "(".
+token(token(")")) --> ")".
+token(token("{")) --> "{".
+token(token("}")) --> "}".
 
 % Error Tokens
-token(tError(Value)) --> notspace(Value).
+token(token(error,Value)) --> notspace(Value).
 
 % Reserved Words and Keywords
-reservedWord("true",tBool(true)).
-reservedWord("false",tBool(false)).
-reservedWord("if",tIf).
-reservedWord("else",tElse).
-reservedWord("while",tWhile).
+reservedWord("true",token(boolean,true)).
+reservedWord("false",token(boolean,false)).
+reservedWord("if",token(if)).
+reservedWord("else",token(else)).
+reservedWord("while",token(while)).
 
 % ==============================================================================
 % String Literals
