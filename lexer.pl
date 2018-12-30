@@ -61,6 +61,7 @@ reservedWord("false",token(boolean,false)).
 reservedWord("if",token(if)).
 reservedWord("else",token(else)).
 reservedWord("while",token(while)).
+reservedWord("var",token(var)).
 
 % ==============================================================================
 % String Literals

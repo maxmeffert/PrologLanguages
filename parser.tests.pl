@@ -73,5 +73,28 @@ test(parser_equality) :-
     assertion(ParseTree=gt(number(2),number(1))).
 
 
+test(parser_program) :-
+    parser([
+        token(var),
+        token(identifier,"myvar"),
+        token(";")
+        ],program,ParseTree),
+    assertion(ParseTree=[]).
+
+test(parser_program) :-
+    parser([
+        token(var),
+        token(identifier,"myvar"),
+        token(";"),
+        token(var),
+        token(identifier,"myvar"),
+        token("="),
+        token(integer,1),
+        token("+"),
+        token(integer,3),
+        token(";")
+        ],program,ParseTree),
+    assertion(ParseTree=[]).
+
 
 :- end_tests(parser).

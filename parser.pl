@@ -4,7 +4,8 @@
 
 :- module(parser, [
     parser/2,
-    parser/3
+    parser/3,
+    program/3
     ]).
 
 parser(Tokens,ParseTree) :-
@@ -13,6 +14,21 @@ parser(Tokens,ParseTree) :-
 
 parser(Tokens,Grammar,ParseTree) :-
     apply(Grammar,[ParseTree,Tokens,[]]).
+
+% ==============================================================================
+% Program
+% ==============================================================================
+
+program(program(X)) --> declarations(X), !.
+
+declarations([X|XS]) --> declaration(X), declarations(XS).
+declarations([]) --> \+ declaration(_).
+
+declaration(X) --> varDeclaration(X), !.
+
+varDeclaration(varDeclaration(X,V)) --> [token(var)], identifier(X), [token("=")], expression(V), [token(";")], !.
+varDeclaration(varDeclaration(X)) --> [token(var)], identifier(X), [token(";")], !.
+
 
 % ==============================================================================
 % Expressions
@@ -53,6 +69,8 @@ floatLiteral(float(X)) --> [token(float,X)].
 stringLiteral(string(X)) --> [token(string,X)].
 
 booleanLiteral(boolean(X)) --> [token(boolean,X)].
+
+identifier(X) --> [token(identifier,X)].
 
 plus --> [token("+")].
 minus --> [token("-")].
