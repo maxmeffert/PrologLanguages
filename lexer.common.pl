@@ -59,8 +59,18 @@ lettersOrDigits([]) --> \+ letterOrDigit(_).
 % String-Code Comparison
 % ------------------------------------------------------------------------------
 
-stringCode(String,Code) --> [Code], { string_codes(String,[Code]) }.
-stringCodes(String,Codes) --> Codes, { string_codes(String,Codes) }.
+stringCode(String,Code) :- string_codes(String,[Code]).
 
-notStringCode(String,Code) --> [Code], { string_codes(String,[C]), \+ C = Code }.
-notStringCodes(String,Codes) --> Codes, { string_codes(String,CS), \+ CS = Codes }.
+stringCode(String,Code) --> [Code], { stringCode(String,Code) }.
+
+stringCodes(String,Codes) :- string_codes(String,Codes).
+
+stringCodes(String,Codes) --> Codes, { stringCodes(String,Codes) }.
+
+notStringCode(String,Code) :- \+ stringCode(String,Code).
+
+notStringCode(String,Code) --> [Code], { notStringCode(String,Code) }.
+
+notStringCodes(String,Codes) :- \+ stringCodes(String,Codes).
+
+notStringCodes(String,Codes) --> Codes, { notStringCodes(String,Codes) }.
