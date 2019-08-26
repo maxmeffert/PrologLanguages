@@ -14,6 +14,7 @@
 :- ensure_loaded('lexer.float.pl').
 :- ensure_loaded('lexer.boolean.pl').
 :- ensure_loaded('lexer.keyword.pl').
+:- ensure_loaded('lexer.symbol.pl').
 :- ensure_loaded('lexer.identifier.pl').
 
 
@@ -42,34 +43,6 @@ token(token(float,Value)) --> tFloat(Value).
 token(token(integer,Value)) --> tInteger(Value).
 token(token(boolean,Value)) --> tBoolean(Value).
 token(token(keyword,Value)) --> tKeyword(Value).
+token(token(symbol, Value)) --> tSymbol(Value).
 token(token(identifier,Value)) --> tIdentifier(Value).
- 
-% Two Caracter Tokens
-token(token("==")) --> "==".
-token(token("!=")) --> "!=".
-token(token("<=")) --> "<=".
-token(token(">=")) --> ">=".
-
-% One Character Tokens
-token(token("=")) --> "=".
-token(token("+")) --> "+".
-token(token("-")) --> "-".
-token(token("*")) --> "*".
-token(token(".")) --> ".".
-token(token(",")) --> ",".
-token(token(";")) --> ";".
-token(token(":")) --> ":".
-token(token("~")) --> "~".
-token(token("/")) --> "/".
-token(token("\\")) --> "\\".
-token(token("<")) --> "<".
-token(token(">")) --> ">".
-token(token("'")) --> "'".
-token(token("\"")) --> "\"".
-token(token("(")) --> "(".
-token(token(")")) --> ")".
-token(token("{")) --> "{".
-token(token("}")) --> "}".
-
-% Error Tokens
 token(token(error,Value)) --> notspace(Value).
