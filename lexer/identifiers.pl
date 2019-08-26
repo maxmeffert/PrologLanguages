@@ -10,6 +10,6 @@
 :- use_module(lexer/letters).
 :- use_module(lexer/letters_or_digits).
 
-token_identifier_dcg(Value) --> letter(L), lettersOrDigits(LS), {
+token_identifier_dcg(Value) --> letter_dcg(L), letters_or_digits_dcg(LS), {
     stringCodes(Value,[L|LS])
 }.

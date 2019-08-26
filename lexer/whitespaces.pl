@@ -4,12 +4,12 @@
 
 :- module(lexer_whitespaces, [
         whitespace/1,
-        whitespace/2,
-        whitespace/3,
         whitespaces/1,
-        whitespaces/3,
-        notWhitespace/3,
-        notWhitespaces/3
+        whitespace_dcg/2,
+        whitespace_dcg/3,
+        whitespaces_dcg/3,
+        not_whitespace_dcg/3,
+        not_whitespaces_dcg/3
         ]).
 
 whitespace(Code) :- code_type(Code, space), !.
@@ -22,12 +22,12 @@ whitespaces([Code|Codes]) :-
 
 notWhitespace(Code) :- \+ whitespace(Code).
 
-whitespace --> [Code], { whitespace(Code) }.
-whitespace(Code) --> [Code], { whitespace(Code) }.
+whitespace_dcg --> [Code], { whitespace(Code) }.
+whitespace_dcg(Code) --> [Code], { whitespace(Code) }.
 
-whitespaces([Code|Codes]) --> whitespace(Code), whitespaces(Codes).
-whitespaces([]) --> \+ whitespace(_).
+whitespaces_dcg([Code|Codes]) --> whitespaces_dcg(Code), whitespaces_dcg(Codes).
+whitespaces_dcg([]) --> \+ whitespaces_dcg(_).
 
-notWhitespace(Code) --> [Code], { notWhitespace(Code) }.
-notWhitespaces([Code|Codes]) --> notWhitespace(Code), notWhitespaces(Codes).
-notWhitespaces([]) --> \+ notWhitespace(_).
+not_whitespace_dcg(Code) --> [Code], { notWhitespace(Code) }.
+not_whitespaces_dcg([Code|Codes]) --> not_whitespace_dcg(Code), not_whitespaces_dcg(Codes).
+not_whitespaces_dcg([]) --> \+ not_whitespace_dcg(_).

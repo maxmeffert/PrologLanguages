@@ -13,7 +13,7 @@
 floatDecimalPoint(Code) --> stringCode(".",Code).
 floatExponent(Code) --> stringCode("e",Code).
 
-floatFractionLiteral([P,D|DS]) --> floatDecimalPoint(P), digit(D), digits(DS).
+floatFractionLiteral([P,D|DS]) --> floatDecimalPoint(P), digit_dcg(D), digits_dcg(DS).
 
 floatExponentLiteral([FloatExponent|IntegerLiteral]) --> floatExponent(FloatExponent), signedIntegerLiteral(IntegerLiteral).
 floatExponentLiteral([FloatExponent|IntegerLiteral]) --> floatExponent(FloatExponent), integerLiteral(IntegerLiteral).

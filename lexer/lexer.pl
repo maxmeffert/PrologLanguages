@@ -31,7 +31,7 @@ lexer_from_file(File,Tokens) :-
 % ==============================================================================
 
 lexer_dcg([Token|T]) --> token_dcg(Token), !, lexer_dcg(T).
-lexer_dcg(T) --> whitespace, !, lexer_dcg(T).
+lexer_dcg(T) --> whitespace_dcg, !, lexer_dcg(T).
 lexer_dcg([]) --> [], !.  
 
 % ==============================================================================
@@ -45,4 +45,4 @@ token_dcg(token(boolean,Value)) --> token_boolean_dcg(Value).
 token_dcg(token(keyword,Value)) --> token_keyword_dcg(Value).
 token_dcg(token(symbol, Value)) --> token_symbol_dcg(Value).
 token_dcg(token(identifier,Value)) --> token_identifier_dcg(Value).
-token_dcg(token(error,Value)) --> notWhitespace(Value).
+token_dcg(token(error,Value)) --> not_whitespace_dcg(Value).

@@ -4,15 +4,15 @@
 
 :- module(lexer_letters, [
         letter/1,
-        letter/3,
-        letters/3
+        letter_dcg/3,
+        letters_dcg/3
         ]).
 
 :- use_module(lexer/letters).
 
 letter(Code) :- code_type(Code, alpha), !.
 
-letter(Code) --> [Code], { letter(Code) }.
+letter_dcg(Code) --> [Code], { letter(Code) }.
 
-letters([Code|Codes]) --> letter(Code), letters(Codes).
-letters([]) --> \+ letter(_).
+letters_dcg([Code|Codes]) --> letter_dcg(Code), letters_dcg(Codes).
+letters_dcg([]) --> \+ letter_dcg(_).

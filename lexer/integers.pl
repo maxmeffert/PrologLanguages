@@ -13,8 +13,8 @@
 sign(Code) --> stringCode("+",Code).
 sign(Code) --> stringCode("-",Code).
 
-signedIntegerLiteral([S,D|DS]) --> sign(S), digit(D), digits(DS).
-integerLiteral([D|DS]) --> digit(D), digits(DS).
+signedIntegerLiteral([S,D|DS]) --> sign(S), digit_dcg(D), digits_dcg(DS).
+integerLiteral([D|DS]) --> digit_dcg(D), digits_dcg(DS).
 
 token_integer_dcg(IntegerValue) --> integerLiteral(IntegerLiteral), {
     number_string(IntegerValue,IntegerLiteral)
