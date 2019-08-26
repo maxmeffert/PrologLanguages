@@ -2,16 +2,15 @@
 % Lexer
 % ==============================================================================
 
-:- module(lexer, [lexer/2]).
+:- module(lexer, [lexer/2, lexer/3]).
 
 lexer([Token|T]) --> token(Token), !, lexer(T).
 lexer(T) --> space, !, lexer(T).
 lexer([]) --> [], !.
 
 lexer(String,Tokens) :-
-    string(String),
-    string_codes(String,Chars),
-    lexer(Tokens,Chars,[]).
+    string_codes(String, Chars),
+    phrase(lexer(Tokens), Chars).
 
 % ==============================================================================
 % Tokens
@@ -58,10 +57,10 @@ token(token(error,Value)) --> notspace(Value).
 % Reserved Words and Keywords
 reservedWord("true",token(boolean,true)).
 reservedWord("false",token(boolean,false)).
-reservedWord("if",token(if)).
-reservedWord("else",token(else)).
-reservedWord("while",token(while)).
-reservedWord("var",token(var)).
+reservedWord("if",token(keyword,if)).
+reservedWord("else",token(keyword,else)).
+reservedWord("while",token(keyword,while)).
+reservedWord("var",token(keyword,var)).
 
 % ==============================================================================
 % String Literals
