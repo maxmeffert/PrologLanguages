@@ -1,5 +1,5 @@
 :- begin_tests(lexer_float).
-:- ensure_loaded('lexer.pl').
+:- ensure_loaded('../lexer/lexer.pl').
 
 test(float_unsigned) :- 
     lexer_from_string("1.0",Tokens),

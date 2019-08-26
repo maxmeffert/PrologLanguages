@@ -1,5 +1,5 @@
 :- begin_tests(lexer_misc).
-:- ensure_loaded('lexer.pl').
+:- ensure_loaded('../lexer/lexer.pl').
 
 test(some_expression) :- 
     lexer_from_string("1-10",Tokens),
