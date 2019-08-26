@@ -8,17 +8,17 @@
 
 :- use_module(lexer/common).
 
-doubleQuote(Code) --> stringCode("\"", Code).
+doubleQuote(Code) --> string_code_dcg("\"", Code).
 
-stringContent([S,Q]) --> stringCodes("\\\"",[S,Q]).
-stringContent([Q]) --> notStringCode("\"",Q).
+stringContent([S,Q]) --> string_codes_dcg("\\\"",[S,Q]).
+stringContent([Q]) --> not_string_code_dcg("\"",Q).
 
 stringContents([S,Q|QS]) --> stringContent([S,Q]), stringContents(QS).
 stringContents([Q|QS]) --> stringContent([Q]), stringContents(QS).
 stringContents([]) --> \+ stringContent(_).
 
 stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQuote(_), {
-    stringCodes(StringValue,Contents)
+    string_codes(StringValue,Contents)
 }.
 
 token_string_dcg(StringValue) --> stringLiteral(StringValue).

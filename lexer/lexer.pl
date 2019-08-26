@@ -20,7 +20,7 @@
 
 
 lexer_from_string(String,Tokens) :-
-    stringCodes(String, Chars),
+    string_codes(String, Chars),
     phrase(lexer_dcg(Tokens), Chars).
 
 lexer_from_file(File,Tokens) :-

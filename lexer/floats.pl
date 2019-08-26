@@ -10,8 +10,8 @@
 :- use_module(lexer/digits).
 :- use_module(lexer/integers).
 
-floatDecimalPoint(Code) --> stringCode(".",Code).
-floatExponent(Code) --> stringCode("e",Code).
+floatDecimalPoint(Code) --> string_code_dcg(".",Code).
+floatExponent(Code) --> string_code_dcg("e",Code).
 
 floatFractionLiteral([P,D|DS]) --> floatDecimalPoint(P), digit_dcg(D), digits_dcg(DS).
 

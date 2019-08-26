@@ -10,8 +10,8 @@
 :- use_module(lexer/common).
 :- use_module(lexer/digits).
 
-sign(Code) --> stringCode("+",Code).
-sign(Code) --> stringCode("-",Code).
+sign(Code) --> string_code_dcg("+",Code).
+sign(Code) --> string_code_dcg("-",Code).
 
 signedIntegerLiteral([S,D|DS]) --> sign(S), digit_dcg(D), digits_dcg(DS).
 integerLiteral([D|DS]) --> digit_dcg(D), digits_dcg(DS).
