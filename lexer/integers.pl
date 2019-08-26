@@ -2,29 +2,19 @@
 % Integer Number Literals
 % ==============================================================================
 :- module(lexer_integers, [
-        token_integer_dcg/3,
-        signed_integer_literal_dcg/3,
-        unsigned_integer_literal_dcg/3
+        token_integer_dcg/3
         ]).
 
 :- use_module(lexer/common).
 :- use_module(lexer/digits).
 
-sign_dcg(Code) --> string_code_dcg("+",Code).
-sign_dcg(Code) --> string_code_dcg("-",Code).
+integer_literal(Digits,IntegerLiteral) :-
+    string_codes(IntegerLiteral,Digits).
 
-signed_integer_literal_dcg([Sign,Digit|Digits]) --> 
-    sign_dcg(Sign), 
+integer_literal_dcg([Digit|Digits]) --> 
     digit_dcg(Digit), 
-    digits_dcg(Digits).
+    digits_dcg(Digits), !.
 
-unsigned_integer_literal_dcg([Digit|Digits]) --> 
-    digit_dcg(Digit), 
-    digits_dcg(Digits).
-
-integer_value(IntegerLiteral,IntegerValue) :- 
-    number_string(IntegerValue,IntegerLiteral).
-
-token_integer_dcg(IntegerValue) --> 
-    unsigned_integer_literal_dcg(IntegerLiteral), 
-    { integer_value(IntegerLiteral,IntegerValue) }.
+token_integer_dcg(IntegerLiteral) --> 
+    integer_literal_dcg(Digits), 
+    { integer_literal(Digits,IntegerLiteral) }.
