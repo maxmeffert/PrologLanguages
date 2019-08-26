@@ -13,14 +13,14 @@
 sign_dcg(Code) --> string_code_dcg("+",Code).
 sign_dcg(Code) --> string_code_dcg("-",Code).
 
-signed_integer_literal_dcg([S,D|DS]) --> 
-    sign_dcg(S), 
-    digit_dcg(D), 
-    digits_dcg(DS).
+signed_integer_literal_dcg([Sign,Digit|Digits]) --> 
+    sign_dcg(Sign), 
+    digit_dcg(Digit), 
+    digits_dcg(Digits).
 
-unsigned_integer_literal_dcg([D|DS]) --> 
-    digit_dcg(D), 
-    digits_dcg(DS).
+unsigned_integer_literal_dcg([Digit|Digits]) --> 
+    digit_dcg(Digit), 
+    digits_dcg(Digits).
 
 token_integer_dcg(IntegerValue) --> 
     unsigned_integer_literal_dcg(IntegerLiteral), 
