@@ -4,12 +4,28 @@
 %
 % ==============================================================================
 
+
+% ------------------------------------------------------------------------------
+% CodeInfo
+% ------------------------------------------------------------------------------
+
+codeInfo(Code,(Code,whitespace)) :- code_type(Code, space), !.
+codeInfo(Code,(Code,whitespace)) :- code_type(Code, white), !.
+codeInfo(Code,(Code,letter)) :- code_type(Code, alpha), !.
+codeInfo(Code,(Code,digit)) :- code_type(Code, digit), !.
+
 % ------------------------------------------------------------------------------
 % Whitespaces
 % ------------------------------------------------------------------------------
 
-whitespace(Code) :- code_type(Code, space).
-notWhitespace(Code) :- \+ code_type(Code, space).
+whitespace(Code) :- codeInfo(Code, (Code,whitespace)).
+
+whitespaces([]).
+whitespaces([Code|Codes]) :- 
+    whitespace(Code), 
+    whitespaces(Codes).
+
+notWhitespace(Code) :- \+ whitespace(Code).
 
 whitespace --> [Code], { whitespace(Code) }.
 whitespace(Code) --> [Code], { whitespace(Code) }.
@@ -25,7 +41,7 @@ notWhitespaces([]) --> \+ notWhitespace(_).
 % Digits
 % ------------------------------------------------------------------------------
 
-digit(Code) :- code_type(Code,digit).
+digit(Code) :- codeInfo(Code, (Code,digit)).
 
 digit(Code) --> [Code], { digit(Code) }.
 
@@ -36,7 +52,7 @@ digits([]) --> \+ digit(_).
 % Letters
 % ------------------------------------------------------------------------------
 
-letter(Code) :- code_type(Code,alpha).
+letter(Code) :- codeInfo(Code, (Code,letter)).
 
 letter(Code) --> [Code], { letter(Code) }.
 
