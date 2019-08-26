@@ -25,22 +25,35 @@ float_exponent_literal_dcg([FloatExponent|IntegerLiteral]) -->
     float_exponent_dcg(FloatExponent), 
     integerLiteral(IntegerLiteral).
 
-float_literal_dcg(FloatLiteral) --> 
-    integerLiteral(IntegerLiteral), 
-    float_fraction_literal_dcg(FloatFractionLiteral), 
-    float_exponent_literal_dcg(FloatExponentLiteral), 
-    { append(IntegerLiteral,FloatFractionLiteral,X), append(X,FloatExponentLiteral,FloatLiteral) }.
+float_literal(IntegerLiteral,FloatFractionLiteral,FloatExponentLiteral,FloatLiteral) :-
+    append(IntegerLiteral,FloatFractionLiteral,X), 
+    append(X,FloatExponentLiteral,FloatLiteral).
+
+float_literal_without_exponent(IntegerLiteral,FloatFractionLiteral,FloatLiteral) :-
+    append(IntegerLiteral,FloatFractionLiteral,FloatLiteral).
+
+float_literal_without_fraction(IntegerLiteral,FloatExponentLiteral,FloatLiteral) :-
+    append(IntegerLiteral,FloatExponentLiteral,FloatLiteral).
 
 float_literal_dcg(FloatLiteral) --> 
     integerLiteral(IntegerLiteral), 
     float_fraction_literal_dcg(FloatFractionLiteral), 
-    { append(IntegerLiteral,FloatFractionLiteral,FloatLiteral) }.
+    float_exponent_literal_dcg(FloatExponentLiteral), 
+    { float_literal(IntegerLiteral,FloatFractionLiteral,FloatExponentLiteral,FloatLiteral) }.
+
+float_literal_dcg(FloatLiteral) --> 
+    integerLiteral(IntegerLiteral), 
+    float_fraction_literal_dcg(FloatFractionLiteral), 
+    { float_literal_without_exponent(IntegerLiteral,FloatFractionLiteral,FloatLiteral) }.
 
 float_literal_dcg(FloatLiteral) --> 
     integerLiteral(IntegerLiteral), 
     float_exponent_literal_dcg(FloatExponentLiteral), 
-    { append(IntegerLiteral,FloatExponentLiteral,FloatLiteral) }.
+    { float_literal_without_fraction(IntegerLiteral,FloatExponentLiteral,FloatLiteral) }.
+
+float_value(FloatLiteral,FloatValue) :-
+    number_string(FloatValue,FloatLiteral).
 
 token_float_dcg(FloatValue) --> 
     float_literal_dcg(FloatLiteral), 
-    { number_string(FloatValue,FloatLiteral) }.
+    { float_value(FloatLiteral,FloatValue) }.
