@@ -1,0 +1,1 @@
+swipl -s lexer.tests.all.pl -t run_tests
