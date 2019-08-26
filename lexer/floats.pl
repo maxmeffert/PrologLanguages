@@ -20,10 +20,10 @@ float_fraction_literal_dcg([P,D|DS]) -->
 
 float_exponent_literal_dcg([FloatExponent|IntegerLiteral]) --> 
     float_exponent_dcg(FloatExponent), 
-    signedIntegerLiteral(IntegerLiteral).
+    signed_integer_literal_dcg(IntegerLiteral).
 float_exponent_literal_dcg([FloatExponent|IntegerLiteral]) --> 
     float_exponent_dcg(FloatExponent), 
-    integerLiteral(IntegerLiteral).
+    unsigned_integer_literal_dcg(IntegerLiteral).
 
 float_literal(IntegerLiteral,FloatFractionLiteral,FloatExponentLiteral,FloatLiteral) :-
     append(IntegerLiteral,FloatFractionLiteral,X), 
@@ -36,18 +36,18 @@ float_literal_without_fraction(IntegerLiteral,FloatExponentLiteral,FloatLiteral)
     append(IntegerLiteral,FloatExponentLiteral,FloatLiteral).
 
 float_literal_dcg(FloatLiteral) --> 
-    integerLiteral(IntegerLiteral), 
+    unsigned_integer_literal_dcg(IntegerLiteral), 
     float_fraction_literal_dcg(FloatFractionLiteral), 
     float_exponent_literal_dcg(FloatExponentLiteral), 
     { float_literal(IntegerLiteral,FloatFractionLiteral,FloatExponentLiteral,FloatLiteral) }.
 
 float_literal_dcg(FloatLiteral) --> 
-    integerLiteral(IntegerLiteral), 
+    unsigned_integer_literal_dcg(IntegerLiteral), 
     float_fraction_literal_dcg(FloatFractionLiteral), 
     { float_literal_without_exponent(IntegerLiteral,FloatFractionLiteral,FloatLiteral) }.
 
 float_literal_dcg(FloatLiteral) --> 
-    integerLiteral(IntegerLiteral), 
+    unsigned_integer_literal_dcg(IntegerLiteral), 
     float_exponent_literal_dcg(FloatExponentLiteral), 
     { float_literal_without_fraction(IntegerLiteral,FloatExponentLiteral,FloatLiteral) }.
 
