@@ -2,6 +2,10 @@
 % String Literals
 % ==============================================================================
 
+:- module(lexer_strings, [
+        tString/3
+        ]).
+
 :- use_module(lexer/common).
 
 doubleQuote(Code) --> stringCode("\"", Code).

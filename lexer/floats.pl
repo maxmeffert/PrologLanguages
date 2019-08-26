@@ -2,8 +2,12 @@
 % Floating Point Number Literals
 % ==============================================================================
 
+:- module(lexer_floats, [
+    tFloat/3
+    ]).
+
 :- use_module(lexer/common).
-:- ensure_loaded('lexer.integer.pl').
+:- use_module(lexer/integers).
 
 floatDecimalPoint(Code) --> stringCode(".",Code).
 floatExponent(Code) --> stringCode("e",Code).

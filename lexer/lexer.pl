@@ -9,13 +9,13 @@
     ]).
 
 :- use_module(lexer/common).
-:- ensure_loaded('lexer.string.pl').
-:- ensure_loaded('lexer.integer.pl').
-:- ensure_loaded('lexer.float.pl').
-:- ensure_loaded('lexer.boolean.pl').
-:- ensure_loaded('lexer.keyword.pl').
-:- ensure_loaded('lexer.symbol.pl').
-:- ensure_loaded('lexer.identifier.pl').
+:- use_module(lexer/strings).
+:- use_module(lexer/integers).
+:- use_module(lexer/floats).
+:- use_module(lexer/booleans).
+:- use_module(lexer/keywords).
+:- use_module(lexer/symbols).
+:- use_module(lexer/identifiers).
 
 
 lexer_from_string(String,Tokens) :-

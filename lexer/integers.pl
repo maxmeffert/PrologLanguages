@@ -1,6 +1,11 @@
 % ==============================================================================
 % Integer Number Literals
 % ==============================================================================
+:- module(lexer_integers, [
+        tInteger/3,
+        signedIntegerLiteral/3,
+        integerLiteral/3
+        ]).
 
 :- use_module(lexer/common).
 

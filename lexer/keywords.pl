@@ -2,6 +2,10 @@
 % Keyword Literals
 % ==============================================================================
 
+:- module(lexer_keywords, [
+        tKeyword/3
+        ]).
+
 :- use_module(lexer/common).
 
 tKeyword(if) --> letters(LS), { stringCodes("if", LS) }.
