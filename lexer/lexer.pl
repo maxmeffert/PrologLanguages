@@ -5,7 +5,7 @@
 :- module(lexer, [
     lexer_from_string/2, 
     lexer_from_file/2, 
-    lexer/3
+    lexer_dcg/3
     ]).
 
 :- use_module(lexer/common).
@@ -20,28 +20,28 @@
 
 lexer_from_string(String,Tokens) :-
     stringCodes(String, Chars),
-    phrase(lexer(Tokens), Chars).
+    phrase(lexer_dcg(Tokens), Chars).
 
 lexer_from_file(File,Tokens) :-
-    phrase_from_file(lexer(Tokens), File).  
+    phrase_from_file(lexer_dcg(Tokens), File).  
 
 % ==============================================================================
 % Lexer DCG
 % ==============================================================================
 
-lexer([Token|T]) --> token(Token), !, lexer(T).
-lexer(T) --> whitespace, !, lexer(T).
-lexer([]) --> [], !.  
+lexer_dcg([Token|T]) --> token_dcg(Token), !, lexer_dcg(T).
+lexer_dcg(T) --> whitespace, !, lexer_dcg(T).
+lexer_dcg([]) --> [], !.  
 
 % ==============================================================================
-% Tokens token(Kind,Value)
+% Token DCG: token(Kind,Value)
 % ==============================================================================
 
-token(token(string,Value)) --> tString(Value).
-token(token(float,Value)) --> tFloat(Value).
-token(token(integer,Value)) --> tInteger(Value).
-token(token(boolean,Value)) --> tBoolean(Value).
-token(token(keyword,Value)) --> tKeyword(Value).
-token(token(symbol, Value)) --> tSymbol(Value).
-token(token(identifier,Value)) --> tIdentifier(Value).
-token(token(error,Value)) --> notWhitespace(Value).
+token_dcg(token(string,Value)) --> token_string_dcg(Value).
+token_dcg(token(float,Value)) --> token_float_dcg(Value).
+token_dcg(token(integer,Value)) --> token_integer_dcg(Value).
+token_dcg(token(boolean,Value)) --> token_boolean_dcg(Value).
+token_dcg(token(keyword,Value)) --> token_keyword_dcg(Value).
+token_dcg(token(symbol, Value)) --> token_symbol_dcg(Value).
+token_dcg(token(identifier,Value)) --> token_identifier_dcg(Value).
+token_dcg(token(error,Value)) --> notWhitespace(Value).

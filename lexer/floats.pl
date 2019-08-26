@@ -3,7 +3,7 @@
 % ==============================================================================
 
 :- module(lexer_floats, [
-    tFloat/3
+    token_float_dcg/3
     ]).
 
 :- use_module(lexer/common).
@@ -28,6 +28,6 @@ floatLiteral(FloatLiteral) --> integerLiteral(IntegerLiteral), floatExponentLite
     append(IntegerLiteral,FloatExponentLiteral,FloatLiteral)
 }.
 
-tFloat(FloatValue) --> floatLiteral(FloatLiteral), {
+token_float_dcg(FloatValue) --> floatLiteral(FloatLiteral), {
     number_string(FloatValue,FloatLiteral)
 }.

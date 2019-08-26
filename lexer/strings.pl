@@ -3,7 +3,7 @@
 % ==============================================================================
 
 :- module(lexer_strings, [
-        tString/3
+        token_string_dcg/3
         ]).
 
 :- use_module(lexer/common).
@@ -21,4 +21,4 @@ stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQ
     stringCodes(StringValue,Contents)
 }.
 
-tString(StringValue) --> stringLiteral(StringValue).
+token_string_dcg(StringValue) --> stringLiteral(StringValue).

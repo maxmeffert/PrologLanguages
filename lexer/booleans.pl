@@ -3,10 +3,10 @@
 % ==============================================================================
 
 :- module(lexer_booleans, [
-    tBoolean/3
+    token_boolean_dcg/3
     ]).
 
 :- use_module(lexer/common).
 
-tBoolean(true) --> letters(LS), { stringCodes("true", LS) }.
-tBoolean(false) --> letters(LS), { stringCodes("false", LS) }.
+token_boolean_dcg(true) --> letters(LS), { stringCodes("true", LS) }.
+token_boolean_dcg(false) --> letters(LS), { stringCodes("false", LS) }.

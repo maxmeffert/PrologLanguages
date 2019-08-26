@@ -3,35 +3,35 @@
 % ==============================================================================
 
 :- module(lexer_symbols, [
-        tSymbol/3
+        token_symbol_dcg/3
         ]).
 
 :- use_module(lexer/common).
 
 % Two Caracter Tokens
-tSymbol("==") --> "==".
-tSymbol("!=") --> "!=".
-tSymbol("<=") --> "<=".
-tSymbol(">=") --> ">=".
+token_symbol_dcg("==") --> "==".
+token_symbol_dcg("!=") --> "!=".
+token_symbol_dcg("<=") --> "<=".
+token_symbol_dcg(">=") --> ">=".
 
 % One Character Tokens
-tSymbol("=") --> "=".
-tSymbol("+") --> "+".
-tSymbol("-") --> "-".
-tSymbol("*") --> "*".
-tSymbol(".") --> ".".
-tSymbol(",") --> ",".
-tSymbol(";") --> ";".
-tSymbol(":") --> ":".
-tSymbol("~") --> "~".
-tSymbol("/") --> "/".
-tSymbol("\\") --> "\\".
-tSymbol("<") --> "<".
-tSymbol(">") --> ">".
-tSymbol("'") --> "'".
-tSymbol("\"") --> "\"".
-tSymbol("(") --> "(".
-tSymbol(")") --> ")".
-tSymbol("{") --> "{".
-tSymbol("}") --> "}".
+token_symbol_dcg("=") --> "=".
+token_symbol_dcg("+") --> "+".
+token_symbol_dcg("-") --> "-".
+token_symbol_dcg("*") --> "*".
+token_symbol_dcg(".") --> ".".
+token_symbol_dcg(",") --> ",".
+token_symbol_dcg(";") --> ";".
+token_symbol_dcg(":") --> ":".
+token_symbol_dcg("~") --> "~".
+token_symbol_dcg("/") --> "/".
+token_symbol_dcg("\\") --> "\\".
+token_symbol_dcg("<") --> "<".
+token_symbol_dcg(">") --> ">".
+token_symbol_dcg("'") --> "'".
+token_symbol_dcg("\"") --> "\"".
+token_symbol_dcg("(") --> "(".
+token_symbol_dcg(")") --> ")".
+token_symbol_dcg("{") --> "{".
+token_symbol_dcg("}") --> "}".
 

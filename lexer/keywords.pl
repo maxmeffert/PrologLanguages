@@ -3,13 +3,13 @@
 % ==============================================================================
 
 :- module(lexer_keywords, [
-        tKeyword/3
+        token_keyword_dcg/3
         ]).
 
 :- use_module(lexer/common).
 
-tKeyword(if) --> letters(LS), { stringCodes("if", LS) }.
-tKeyword(else) --> letters(LS), { stringCodes("else", LS) }.
-tKeyword(while) --> letters(LS), { stringCodes("while", LS) }.
-tKeyword(var) --> letters(LS), { stringCodes("var", LS) }.
+token_keyword_dcg(if) --> letters(LS), { stringCodes("if", LS) }.
+token_keyword_dcg(else) --> letters(LS), { stringCodes("else", LS) }.
+token_keyword_dcg(while) --> letters(LS), { stringCodes("while", LS) }.
+token_keyword_dcg(var) --> letters(LS), { stringCodes("var", LS) }.
 

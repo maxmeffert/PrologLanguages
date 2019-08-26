@@ -3,11 +3,11 @@
 % ==============================================================================
 
 :- module(lexer_identifiers, [
-        tIdentifier/3
+        token_identifier_dcg/3
         ]).
 
 :- use_module(lexer/common).
 
-tIdentifier(Value) --> letter(L), lettersOrDigits(LS), {
+token_identifier_dcg(Value) --> letter(L), lettersOrDigits(LS), {
     stringCodes(Value,[L|LS])
 }.
