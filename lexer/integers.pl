@@ -13,9 +13,15 @@
 sign_dcg(Code) --> string_code_dcg("+",Code).
 sign_dcg(Code) --> string_code_dcg("-",Code).
 
-signed_integer_literal_dcg([S,D|DS]) --> sign_dcg(S), digit_dcg(D), digits_dcg(DS).
-unsigned_integer_literal_dcg([D|DS]) --> digit_dcg(D), digits_dcg(DS).
+signed_integer_literal_dcg([S,D|DS]) --> 
+    sign_dcg(S), 
+    digit_dcg(D), 
+    digits_dcg(DS).
 
-token_integer_dcg(IntegerValue) --> unsigned_integer_literal_dcg(IntegerLiteral), {
-    number_string(IntegerValue,IntegerLiteral)
-}.
+unsigned_integer_literal_dcg([D|DS]) --> 
+    digit_dcg(D), 
+    digits_dcg(DS).
+
+token_integer_dcg(IntegerValue) --> 
+    unsigned_integer_literal_dcg(IntegerLiteral), 
+    { number_string(IntegerValue,IntegerLiteral) }.
