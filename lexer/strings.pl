@@ -17,8 +17,10 @@ string_contents_dcg([Code1,Code2|Codes]) --> string_content_dcg([Code1,Code2]), 
 string_contents_dcg([Code|Codes]) --> string_content_dcg([Code]), string_contents_dcg(Codes).
 string_contents_dcg([]) --> \+ string_content_dcg(_).
 
-string_literal_dcg(String) --> double_quote_dcg(_), string_contents_dcg(Codes), double_quote_dcg(_), {
-    string_codes(String,Codes)
-}.
+string_literal_dcg(String) --> 
+    double_quote_dcg(_), 
+    string_contents_dcg(Codes), 
+    double_quote_dcg(_), 
+    { string_codes(String,Codes) }. % convert codes back to string
 
 token_string_dcg(String) --> string_literal_dcg(String).
