@@ -8,10 +8,9 @@
         letters/3
         ]).
 
-:- use_module(lexer/common).
 :- use_module(lexer/letters).
 
-letter(Code) :- codeInfo(Code, (Code,letter)).
+letter(Code) :- code_type(Code, alpha), !.
 
 letter(Code) --> [Code], { letter(Code) }.
 

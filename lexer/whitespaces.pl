@@ -12,10 +12,8 @@
         notWhitespaces/3
         ]).
 
-
-:- use_module(lexer/common).
-
-whitespace(Code) :- codeInfo(Code, (Code,whitespace)).
+whitespace(Code) :- code_type(Code, space), !.
+whitespace(Code) :- code_type(Code, white), !.
 
 whitespaces([]).
 whitespaces([Code|Codes]) :- 

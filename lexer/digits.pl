@@ -8,9 +8,7 @@
         digits/3
         ]).
 
-:- use_module(lexer/common).
-
-digit(Code) :- codeInfo(Code, (Code,digit)).
+digit(Code) :- code_type(Code, digit), !.
 
 digit(Code) --> [Code], { digit(Code) }.
 
