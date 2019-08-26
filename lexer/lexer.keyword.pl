@@ -2,7 +2,7 @@
 % Keyword Literals
 % ==============================================================================
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 
 tKeyword(if) --> letters(LS), { stringCodes("if", LS) }.
 tKeyword(else) --> letters(LS), { stringCodes("else", LS) }.

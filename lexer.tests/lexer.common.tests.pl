@@ -1,5 +1,5 @@
 :- begin_tests(lexer_common).
-:- ensure_loaded('../lexer/lexer.common.pl').
+:- use_module(lexer/common).
 
 test(whitespace_succeeds_for_space_string) :- 
     string_codes(" ", [Code]),

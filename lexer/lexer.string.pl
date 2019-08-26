@@ -2,7 +2,7 @@
 % String Literals
 % ==============================================================================
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 
 doubleQuote(Code) --> stringCode("\"", Code).
 

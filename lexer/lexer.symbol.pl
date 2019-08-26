@@ -2,7 +2,7 @@
 % Symbolic Literals
 % ==============================================================================
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 
 % Two Caracter Tokens
 tSymbol("==") --> "==".

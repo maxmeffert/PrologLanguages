@@ -2,7 +2,7 @@
 % Floating Point Number Literals
 % ==============================================================================
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 :- ensure_loaded('lexer.integer.pl').
 
 floatDecimalPoint(Code) --> stringCode(".",Code).

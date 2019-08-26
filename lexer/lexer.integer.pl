@@ -2,7 +2,7 @@
 % Integer Number Literals
 % ==============================================================================
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 
 sign(Code) --> stringCode("+",Code).
 sign(Code) --> stringCode("-",Code).

@@ -8,7 +8,7 @@
     lexer/3
     ]).
 
-:- ensure_loaded('lexer.common.pl').
+:- use_module(lexer/common).
 :- ensure_loaded('lexer.string.pl').
 :- ensure_loaded('lexer.integer.pl').
 :- ensure_loaded('lexer.float.pl').
