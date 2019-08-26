@@ -1,5 +1,5 @@
 % ==============================================================================
-% Lexer
+% Lexer Interface
 % ==============================================================================
 
 :- module(lexer, [
@@ -8,7 +8,6 @@
     lexer/3
     ]).
 
-
 lexer_from_string(String,Tokens) :-
     string_codes(String, Chars),
     phrase(lexer(Tokens), Chars).
@@ -16,10 +15,13 @@ lexer_from_string(String,Tokens) :-
 lexer_from_file(File,Tokens) :-
     phrase_from_file(lexer(Tokens), File).  
 
+% ==============================================================================
+% Lexer
+% ==============================================================================
+
 lexer([Token|T]) --> token(Token), !, lexer(T).
 lexer(T) --> space, !, lexer(T).
-lexer([]) --> [], !.
-  
+lexer([]) --> [], !.  
 
 % ==============================================================================
 % Tokens
