@@ -9,6 +9,7 @@
     ]).
 
 :- use_module(lexer/common).
+:- use_module(lexer/whitespaces).
 :- use_module(lexer/strings).
 :- use_module(lexer/integers).
 :- use_module(lexer/floats).

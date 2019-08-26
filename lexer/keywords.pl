@@ -7,6 +7,7 @@
         ]).
 
 :- use_module(lexer/common).
+:- use_module(lexer/letters).
 
 token_keyword_dcg(if) --> letters(LS), { stringCodes("if", LS) }.
 token_keyword_dcg(else) --> letters(LS), { stringCodes("else", LS) }.

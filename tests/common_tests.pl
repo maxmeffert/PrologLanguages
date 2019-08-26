@@ -1,5 +1,8 @@
 :- begin_tests(lexer_common).
 :- use_module(lexer/common).
+:- use_module(lexer/whitespaces).
+:- use_module(lexer/letters).
+:- use_module(lexer/digits).
 
 test(whitespace_succeeds_for_space_string) :- 
     string_codes(" ", [Code]),

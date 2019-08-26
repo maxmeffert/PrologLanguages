@@ -7,6 +7,7 @@
     ]).
 
 :- use_module(lexer/common).
+:- use_module(lexer/digits).
 :- use_module(lexer/integers).
 
 floatDecimalPoint(Code) --> stringCode(".",Code).

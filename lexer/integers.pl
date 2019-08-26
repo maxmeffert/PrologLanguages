@@ -8,6 +8,7 @@
         ]).
 
 :- use_module(lexer/common).
+:- use_module(lexer/digits).
 
 sign(Code) --> stringCode("+",Code).
 sign(Code) --> stringCode("-",Code).
