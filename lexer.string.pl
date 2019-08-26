@@ -14,7 +14,7 @@ stringContents([Q|QS]) --> stringContent([Q]), stringContents(QS).
 stringContents([]) --> \+ stringContent(_).
 
 stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQuote(_), {
-    string_codes(StringValue,Contents)
+    stringCodes(StringValue,Contents)
 }.
 
 tString(StringValue) --> stringLiteral(StringValue).

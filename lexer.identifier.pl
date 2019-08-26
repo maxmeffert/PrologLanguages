@@ -5,5 +5,5 @@
 :- ensure_loaded('lexer.common.pl').
 
 tIdentifier(Value) --> letter(L), lettersOrDigits(LS), {
-    string_codes(Value,[L|LS])
+    stringCodes(Value,[L|LS])
 }.

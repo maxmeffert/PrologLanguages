@@ -4,5 +4,5 @@
 
 :- ensure_loaded('lexer.common.pl').
 
-tBoolean(true) --> letters(LS), { string_codes("true", LS) }.
-tBoolean(false) --> letters(LS), { string_codes("false", LS) }.
+tBoolean(true) --> letters(LS), { stringCodes("true", LS) }.
+tBoolean(false) --> letters(LS), { stringCodes("false", LS) }.
