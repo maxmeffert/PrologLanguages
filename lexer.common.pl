@@ -11,15 +11,15 @@
 whitespace(Code) :- code_type(Code, space).
 notWhitespace(Code) :- \+ code_type(Code, space).
 
-space --> [Code], { whitespace(Code) }.
-space(Code) --> [Code], { whitespace(Code) }.
+whitespace --> [Code], { whitespace(Code) }.
+whitespace(Code) --> [Code], { whitespace(Code) }.
 
-spaces([Code|Codes]) --> space(Code), spaces(Codes).
-spaces([]) --> \+ space(_).
+whitespaces([Code|Codes]) --> whitespace(Code), whitespaces(Codes).
+whitespaces([]) --> \+ whitespace(_).
 
-notspace(Code) --> [Code], { notWhitespace(Code) }.
-notspaces([Code|Codes]) --> notspace(Code), notspaces(Codes).
-notspaces([]) --> \+ notspace(_).
+notWhitespace(Code) --> [Code], { notWhitespace(Code) }.
+notWhitespaces([Code|Codes]) --> notWhitespace(Code), notWhitespaces(Codes).
+notWhitespaces([]) --> \+ notWhitespace(_).
 
 % ------------------------------------------------------------------------------
 % Digits

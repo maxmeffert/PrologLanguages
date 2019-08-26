@@ -30,7 +30,7 @@ lexer_from_file(File,Tokens) :-
 % ==============================================================================
 
 lexer([Token|T]) --> token(Token), !, lexer(T).
-lexer(T) --> space, !, lexer(T).
+lexer(T) --> whitespace, !, lexer(T).
 lexer([]) --> [], !.  
 
 % ==============================================================================
@@ -44,4 +44,4 @@ token(token(boolean,Value)) --> tBoolean(Value).
 token(token(keyword,Value)) --> tKeyword(Value).
 token(token(symbol, Value)) --> tSymbol(Value).
 token(token(identifier,Value)) --> tIdentifier(Value).
-token(token(error,Value)) --> notspace(Value).
+token(token(error,Value)) --> notWhitespace(Value).
