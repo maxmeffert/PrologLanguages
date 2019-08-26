@@ -34,10 +34,9 @@ lexer(T) --> space, !, lexer(T).
 lexer([]) --> [], !.  
 
 % ==============================================================================
-% Tokens
+% Tokens token(Kind,Value)
 % ==============================================================================
 
-% Literals
 token(token(string,Value)) --> tString(Value).
 token(token(float,Value)) --> tFloat(Value).
 token(token(integer,Value)) --> tInteger(Value).
