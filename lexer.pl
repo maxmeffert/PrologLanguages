@@ -8,10 +8,12 @@
     lexer/3
     ]).
 
+:- ensure_loaded('lexer.common.pl').
 :- ensure_loaded('lexer.string.pl').
 :- ensure_loaded('lexer.integer.pl').
 :- ensure_loaded('lexer.float.pl').
 :- ensure_loaded('lexer.boolean.pl').
+:- ensure_loaded('lexer.keyword.pl').
 :- ensure_loaded('lexer.identifier.pl').
 
 
@@ -39,9 +41,8 @@ token(token(string,Value)) --> tString(Value).
 token(token(float,Value)) --> tFloat(Value).
 token(token(integer,Value)) --> tInteger(Value).
 token(token(boolean,Value)) --> tBoolean(Value).
-token(Token) --> tIdentifier(Identifier), {
-    reservedWord(Identifier,Value) -> Token = Value ; Token = token(identifier,Identifier)  
-}.
+token(token(keyword,Value)) --> tKeyword(Value).
+token(token(identifier,Value)) --> tIdentifier(Value).
  
 % Two Caracter Tokens
 token(token("==")) --> "==".
@@ -72,9 +73,3 @@ token(token("}")) --> "}".
 
 % Error Tokens
 token(token(error,Value)) --> notspace(Value).
-
-% Reserved Words and Keywords
-reservedWord("if",token(keyword,if)).
-reservedWord("else",token(keyword,else)).
-reservedWord("while",token(keyword,while)).
-reservedWord("var",token(keyword,var)).
