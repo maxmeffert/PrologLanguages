@@ -5,3 +5,4 @@
 :- ['lexer.tests.string.pl'].
 :- ['lexer.tests.keyword.pl'].
 :- ['lexer.tests.misc.pl'].
+:- ['lexer.tests.lexer_from_file.pl'].
