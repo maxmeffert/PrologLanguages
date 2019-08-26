@@ -5,8 +5,8 @@
 :- ensure_loaded('lexer.common.pl').
 :- ensure_loaded('lexer.integer.pl').
 
-floatDecimalPoint(Code) --> code(".",Code).
-floatExponent(Code) --> code("e",Code).
+floatDecimalPoint(Code) --> stringCode(".",Code).
+floatExponent(Code) --> stringCode("e",Code).
 
 floatFractionLiteral([P,D|DS]) --> floatDecimalPoint(P), digit(D), digits(DS).
 

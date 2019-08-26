@@ -4,10 +4,10 @@
 
 :- ensure_loaded('lexer.common.pl').
 
-doubleQuote(Code) --> code("\"", Code).
+doubleQuote(Code) --> stringCode("\"", Code).
 
-stringContent([S,Q]) --> codes("\\\"",[S,Q]).
-stringContent([Q]) --> notCode("\"",Q).
+stringContent([S,Q]) --> stringCodes("\\\"",[S,Q]).
+stringContent([Q]) --> notStringCode("\"",Q).
 
 stringContents([S,Q|QS]) --> stringContent([S,Q]), stringContents(QS).
 stringContents([Q|QS]) --> stringContent([Q]), stringContents(QS).
