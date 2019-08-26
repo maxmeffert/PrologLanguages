@@ -8,7 +8,7 @@
 
 :- use_module(lexer/common).
 
-double_quote_dcg(Code) --> string_code_dcg("\"", Code).
+double_quote_dcg --> string_code_dcg("\"", _).
 
 string_content_dcg([Code1,Code2]) --> string_codes_dcg("\\\"",[Code1,Code2]).
 string_content_dcg([Code]) --> not_string_code_dcg("\"",Code).
@@ -18,9 +18,9 @@ string_contents_dcg([Code|Codes]) --> string_content_dcg([Code]), string_content
 string_contents_dcg([]) --> \+ string_content_dcg(_).
 
 string_literal_dcg(String) --> 
-    double_quote_dcg(_), 
+    double_quote_dcg, 
     string_contents_dcg(Codes), 
-    double_quote_dcg(_), 
+    double_quote_dcg, 
     { string_codes(String,Codes) }. % convert codes back to string
 
 token_string_dcg(String) --> string_literal_dcg(String).
