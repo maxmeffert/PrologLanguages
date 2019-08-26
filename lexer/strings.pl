@@ -8,17 +8,17 @@
 
 :- use_module(lexer/common).
 
-doubleQuote(Code) --> string_code_dcg("\"", Code).
+double_quote_dcg(Code) --> string_code_dcg("\"", Code).
 
-stringContent([S,Q]) --> string_codes_dcg("\\\"",[S,Q]).
-stringContent([Q]) --> not_string_code_dcg("\"",Q).
+string_content_dcg([Code1,Code2]) --> string_codes_dcg("\\\"",[Code1,Code2]).
+string_content_dcg([Code]) --> not_string_code_dcg("\"",Code).
 
-stringContents([S,Q|QS]) --> stringContent([S,Q]), stringContents(QS).
-stringContents([Q|QS]) --> stringContent([Q]), stringContents(QS).
-stringContents([]) --> \+ stringContent(_).
+string_contents_dcg([Code1,Code2|Codes]) --> string_content_dcg([Code1,Code2]), string_contents_dcg(Codes).
+string_contents_dcg([Code|Codes]) --> string_content_dcg([Code]), string_contents_dcg(Codes).
+string_contents_dcg([]) --> \+ string_content_dcg(_).
 
-stringLiteral(StringValue) --> doubleQuote(_), stringContents(Contents), doubleQuote(_), {
-    string_codes(StringValue,Contents)
+string_literal_dcg(String) --> double_quote_dcg(_), string_contents_dcg(Codes), double_quote_dcg(_), {
+    string_codes(String,Codes)
 }.
 
-token_string_dcg(StringValue) --> stringLiteral(StringValue).
+token_string_dcg(String) --> string_literal_dcg(String).
