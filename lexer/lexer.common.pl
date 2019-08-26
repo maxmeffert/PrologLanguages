@@ -4,6 +4,32 @@
 %
 % ==============================================================================
 
+:- module(lexer_common, [
+    whitespace/1,
+    whitespace/2,
+    whitespace/3,
+    whitespaces/1,
+    whitespaces/3,
+    notWhitespace/3,
+    notWhitespaces/3,
+    digit/1,
+    digit/3,
+    digits/3,
+    letter/1,
+    letter/3,
+    letters/3,
+    letterOrDigit/1,
+    letterOrDigit/3,
+    lettersOrDigits/3,
+    stringCode/2,
+    stringCode/4,
+    stringCodes/2,
+    stringCodes/4,
+    notStringCode/2,
+    notStringCode/4,
+    notStringCodes/2,
+    notStringCodes/4
+    ]).
 
 % ------------------------------------------------------------------------------
 % CodeInfo
