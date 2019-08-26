@@ -2,13 +2,13 @@
 % Lexer
 % ==============================================================================
 
-:- module(lexer, [lexer/2, lexer_from_file/2, lexer/3]).
+:- module(lexer, [lexer_from_string/2, lexer_from_file/2, lexer/3]).
 
 lexer([Token|T]) --> token(Token), !, lexer(T).
 lexer(T) --> space, !, lexer(T).
 lexer([]) --> [], !.
 
-lexer(String,Tokens) :-
+lexer_from_string(String,Tokens) :-
     string_codes(String, Chars),
     phrase(lexer(Tokens), Chars).
 

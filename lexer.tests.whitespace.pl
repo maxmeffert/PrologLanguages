@@ -2,27 +2,27 @@
 :- ensure_loaded('lexer.pl').
 
 test(emptyString) :- 
-    lexer("",Tokens),
+    lexer_from_string("",Tokens),
     assertion(Tokens=[]).
 
 test(space) :- 
-    lexer(" ",Tokens),
+    lexer_from_string(" ",Tokens),
     assertion(Tokens=[]).
 
 test(tab) :- 
-    lexer("\t",Tokens),
+    lexer_from_string("\t",Tokens),
     assertion(Tokens=[]).
 
 test(carriagereturn) :- 
-    lexer("\r",Tokens),
+    lexer_from_string("\r",Tokens),
     assertion(Tokens=[]).
 
 test(newline) :- 
-    lexer("\n",Tokens),
+    lexer_from_string("\n",Tokens),
     assertion(Tokens=[]).
 
 test(whitespaces) :- 
-    lexer(" \t\t\r\n  ",Tokens),
+    lexer_from_string(" \t\t\r\n  ",Tokens),
     assertion(Tokens=[]).
 
 :- end_tests(lexer_whitespace).

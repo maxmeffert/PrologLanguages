@@ -2,15 +2,15 @@
 :- ensure_loaded('lexer.pl').
 
 test(if) :- 
-    lexer("if",Tokens),
+    lexer_from_string("if",Tokens),
     assertion(Tokens=[token(keyword,if)]).
 
 test(if) :- 
-    lexer("if hello",Tokens),
+    lexer_from_string("if hello",Tokens),
     assertion(Tokens=[token(keyword,if), token(identifier,"hello")]).
 
 test(if) :- 
-    lexer("ifhello",Tokens),
+    lexer_from_string("ifhello",Tokens),
     assertion(Tokens=[token(identifier,"ifhello")]).
 
 
