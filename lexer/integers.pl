@@ -22,6 +22,9 @@ unsigned_integer_literal_dcg([Digit|Digits]) -->
     digit_dcg(Digit), 
     digits_dcg(Digits).
 
+integer_value(IntegerLiteral,IntegerValue) :- 
+    number_string(IntegerValue,IntegerLiteral).
+
 token_integer_dcg(IntegerValue) --> 
     unsigned_integer_literal_dcg(IntegerLiteral), 
-    { number_string(IntegerValue,IntegerLiteral) }.
+    { integer_value(IntegerLiteral,IntegerValue) }.
