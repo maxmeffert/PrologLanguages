@@ -2,18 +2,24 @@
 % Lexer
 % ==============================================================================
 
-:- module(lexer, [lexer_from_string/2, lexer_from_file/2, lexer/3]).
+:- module(lexer, [
+    lexer_from_string/2, 
+    lexer_from_file/2, 
+    lexer/3
+    ]).
 
-lexer([Token|T]) --> token(Token), !, lexer(T).
-lexer(T) --> space, !, lexer(T).
-lexer([]) --> [], !.
 
 lexer_from_string(String,Tokens) :-
     string_codes(String, Chars),
     phrase(lexer(Tokens), Chars).
 
 lexer_from_file(File,Tokens) :-
-    phrase_from_file(lexer(Tokens), File).    
+    phrase_from_file(lexer(Tokens), File).  
+
+lexer([Token|T]) --> token(Token), !, lexer(T).
+lexer(T) --> space, !, lexer(T).
+lexer([]) --> [], !.
+  
 
 % ==============================================================================
 % Tokens
