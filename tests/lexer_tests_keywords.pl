@@ -1,5 +1,5 @@
 :- begin_tests(lexer_keyword).
-:- ensure_loaded('../lexer/lexer.pl').
+:- use_module(lexer/lexer).
 
 test(if) :- 
     lexer_from_string("if",Tokens),

@@ -1,5 +1,5 @@
 :- begin_tests(lexer_whitespace).
-:- ensure_loaded('../lexer/lexer.pl').
+:- use_module(lexer/lexer).
 
 test(emptyString) :- 
     lexer_from_string("",Tokens),

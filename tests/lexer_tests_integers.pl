@@ -1,5 +1,5 @@
 :- begin_tests(lexer_integer).
-:- ensure_loaded('../lexer/lexer.pl').
+:- use_module(lexer/lexer).
 
 test(integer_unsigned) :- 
     lexer_from_string("1",Tokens),

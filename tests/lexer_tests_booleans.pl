@@ -1,5 +1,5 @@
 :- begin_tests(lexer_boolean).
-:- ensure_loaded('../lexer/lexer.pl').
+:- use_module(lexer/lexer).
 
 test(bool_true) :- 
     lexer_from_string("true",Tokens),

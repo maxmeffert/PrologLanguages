@@ -1,3 +1,4 @@
+:- ['common_tests.pl'].
 :- ['lexer_tests_whitespaces.pl'].
 :- ['lexer_tests_booleans.pl'].
 :- ['lexer_tests_integers.pl'].

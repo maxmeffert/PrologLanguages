@@ -1,0 +1,1 @@
+swipl -s tests/tests.pl -t run_tests

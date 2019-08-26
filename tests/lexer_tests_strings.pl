@@ -1,5 +1,5 @@
 :- begin_tests(lexer_string).
-:- ensure_loaded('../lexer/lexer.pl').
+:- use_module(lexer/lexer).
 
 test(string) :-
     lexer_from_string("\"asdf\"",Tokens),
